@@ -63,7 +63,7 @@ def checkForWin(board_state):
     return None, "Not Done"
 
 states_dict = {}
-# get value for the current state ( put 1 for WIN\for LOSS\DRAW stays at 0.0)
+# get value for the current state ( put 1 for WIN\for LOSS is -1\ for draw no change)
 for i in range(n_states):
     states_dict[i] = all_board_states[i]
     winner,_ = checkForWin(all_board_states[i])
@@ -77,7 +77,7 @@ for i in range(n_states):
 
 
 
-# Update the state based on temporal difference: c_state = c_state + alpha*(n_state-c_state)
+# Update the state based on : c_state = c_state + alpha*(n_state-c_state) , alpha is rate of learning
 def newStateValueForX(cstate_idx, nstate_idx, alpha):
     new_val = state_values_for_bot_X[cstate_idx] + alpha * (
             state_values_for_bot_X[nstate_idx] - state_values_for_bot_X[cstate_idx])
@@ -90,7 +90,7 @@ def newStateValueFor0(cstate_idx, nstate_idx, alpha):
     state_values_for_bot_0[nstate_idx] = new_val
 
 
-# Main reinforcement learning algo function
+# Main learning algo functions
 def bestMove_Minimax(state, player):
     '''
     Minimax Algorithm
